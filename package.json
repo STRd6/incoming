@@ -1,0 +1,14 @@
+{
+  "name": "incoming",
+  "version": "0.0.0",
+  "description": "Route incoming email to separate endpoints",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "coffee-script": "^1.9.2",
+    "express": "^4.12.4"
+  }
+}
