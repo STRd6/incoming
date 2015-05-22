@@ -20,6 +20,7 @@ post "/", (req, res) ->
   {mandrill_events} = req.body
 
   console.dir req.body
+  console.dir mandrill_events
 
   mandrill_events.forEach ({msg}) ->
     {to, text} = msg
