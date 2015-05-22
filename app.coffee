@@ -1,4 +1,6 @@
 # BEGIN Boring section
+Request = require "request"
+
 Express = require "express"
 app = Express()
 
@@ -26,8 +28,23 @@ post "/", (req, res) ->
   mandrill_events.forEach ({msg}) ->
     {to, text} = msg
 
+    subdomain = to[0][0].split('@')[0]
+
+    Request.post "http://#{subdomain}.hyperweb.space/email",
+      json:
+        message: text
+    , (error, response, body) ->
+      console.log body
+
     console.log "-----"
     console.log to
     console.log text
 
   res.send "Cool"
+
+post "/email", (req, res) ->
+  data = req.body
+
+  console.log data
+
+  res.send "OK"
