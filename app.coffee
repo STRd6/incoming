@@ -19,6 +19,7 @@ post = (path, cb) ->
 post "/", (req, res) ->
   {mandrill_events} = req.body
 
+  mandrill_events = JSON.parse(mandrill_events)
   console.dir req.body
   console.dir mandrill_events
 
