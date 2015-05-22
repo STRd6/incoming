@@ -28,6 +28,6 @@ post "/", (req, res) ->
 
     console.log "-----"
     console.log to
-    console.log txt
+    console.log text
 
   res.send "Cool"
