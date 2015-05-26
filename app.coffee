@@ -1,6 +1,4 @@
 # BEGIN Boring section
-Request = require "request"
-
 Express = require "express"
 app = Express()
 
@@ -15,32 +13,29 @@ app.listen process.env.PORT or 5000
 
 post = (path, cb) ->
   app.post path, cb
+
+module.exports = app
 # END Boring section
 # Boring section should be handled by HyperWeb for you
+
+postEmail = require "./post_email"
 
 post "/", (req, res) ->
   {mandrill_events} = req.body
 
-  mandrill_events = JSON.parse(mandrill_events)
-  console.dir req.body
-  console.dir mandrill_events
+  unless mandrill_events
+    res
+    .status 400
+    .send "Not cool"
+    return
 
-  mandrill_events.forEach ({msg}) ->
-    {to, text} = msg
+  events = JSON.parse(mandrill_events)
 
-    subdomain = to[0][0].split('@')[0]
+  events.map postEmail
 
-    Request.post "http://#{subdomain}.hyperweb.space/email",
-      json:
-        message: text
-    , (error, response, body) ->
-      console.log body
-
-    console.log "-----"
-    console.log to
-    console.log text
-
-  res.send "Cool"
+  res
+  .status 204
+  .send()
 
 post "/email", (req, res) ->
   data = req.body
