@@ -14,11 +14,16 @@ app.listen process.env.PORT or 5000
 post = (path, cb) ->
   app.post path, cb
 
-module.exports = app
+get = (path, cb) ->
+  app.get path, cb
+
 # END Boring section
 # Boring section should be handled by HyperWeb for you
 
 postEmail = require "./post_email"
+
+get "/hello", (req, res) ->
+  res.send "heyy"
 
 post "/", (req, res) ->
   {mandrill_events} = req.body

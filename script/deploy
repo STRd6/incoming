@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+# TODO: Figure out how to deploy a subtree to heroku in TravisCI
+# (cd ../.. && git subtree push --prefix services/incoming heroku master)
