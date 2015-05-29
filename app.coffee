@@ -1,50 +1,22 @@
-# BEGIN Boring section
-Express = require "express"
-app = Express()
-
-app.use require('body-parser').json()
-app.use require('body-parser').text()
-app.use require('body-parser').urlencoded()
-
-# Would listening here block someone from
-# running their own stock express app
-# without using HyperWeb magic?
-app.listen process.env.PORT or 5000
-
-post = (path, cb) ->
-  app.post path, cb
-
-get = (path, cb) ->
-  app.get path, cb
-
-# END Boring section
-# Boring section should be handled by HyperWeb for you
+H = require "hyperweb"
+app = H.blastOff()
 
 postEmail = require "./post_email"
 
-get "/hello", (req, res) ->
-  res.send "heyy"
+get "/hello", ->
+  "heyy"
 
-post "/", (req, res) ->
-  {mandrill_events} = req.body
-
+post "/", ({mandrill_events}) ->
   unless mandrill_events
-    res
-    .status 400
-    .send "Not cool"
-    return
+    throw "Not cool"
 
   events = JSON.parse(mandrill_events)
 
   events.map postEmail
 
-  res
-  .status 204
-  .send()
+  "OK"
 
-post "/email", (req, res) ->
-  data = req.body
-
+post "/email", (data) ->
   console.log data
 
-  res.send "OK"
+  "OK"
