@@ -4,6 +4,7 @@
   "description": "Route incoming email to separate endpoints",
   "main": "index.coffee",
   "scripts": {
+    "start": "node_modules/.bin/coffee app.coffee",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
