@@ -2,4 +2,4 @@
 set -e
 
 npm install
-script/test
+sh/test
